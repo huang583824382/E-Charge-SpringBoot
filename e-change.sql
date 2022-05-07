@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 07/05/2022 15:57:13
+ Date: 07/05/2022 19:09:17
 */
 
 SET NAMES utf8mb4;
@@ -24,15 +24,17 @@ DROP TABLE IF EXISTS `commodity`;
 CREATE TABLE `commodity`  (
   `item_id` int(0) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `type` tinyint(1) NULL DEFAULT NULL,
-  `pub_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `type` int(0) NULL DEFAULT NULL,
+  `pub_id` int(0) NULL DEFAULT NULL,
   `price` float(10, 2) NULL DEFAULT NULL,
   `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `figure_urls` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `figure_urls` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `release_time` datetime(0) NULL DEFAULT NULL,
   `state` tinyint(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`item_id`) USING BTREE
+  PRIMARY KEY (`item_id`) USING BTREE,
+  INDEX `item_puber`(`pub_id`) USING BTREE,
+  CONSTRAINT `item_puber` FOREIGN KEY (`pub_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -41,12 +43,16 @@ CREATE TABLE `commodity`  (
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message`  (
   `message_id` int(0) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(0) NULL DEFAULT NULL,
+  `type` int(0) NULL DEFAULT NULL,
   `sender_id` int(0) NULL DEFAULT NULL,
   `receiver_id` int(0) NULL DEFAULT NULL,
   `send_time` datetime(0) NULL DEFAULT NULL,
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
-  PRIMARY KEY (`message_id`) USING BTREE
+  PRIMARY KEY (`message_id`) USING BTREE,
+  INDEX `msg_sender`(`sender_id`) USING BTREE,
+  INDEX `msg_recver`(`receiver_id`) USING BTREE,
+  CONSTRAINT `msg_recver` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `msg_sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -55,12 +61,22 @@ CREATE TABLE `message`  (
 DROP TABLE IF EXISTS `report`;
 CREATE TABLE `report`  (
   `report_id` int(0) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(1) NULL DEFAULT NULL,
-  `whistleblower_id` int(0) NOT NULL,
+  `type` int(0) NULL DEFAULT NULL,
+  `target_user_id` int(0) NULL DEFAULT NULL,
+  `target_item_id` int(0) NULL DEFAULT NULL,
+  `whistleblower_id` int(0) NULL DEFAULT NULL,
   `report_time` datetime(0) NULL DEFAULT NULL,
-  `state` tinyint(1) NULL DEFAULT NULL,
+  `state` int(0) NULL DEFAULT NULL,
   `option_id` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`report_id`) USING BTREE
+  PRIMARY KEY (`report_id`) USING BTREE,
+  INDEX `pub_er`(`whistleblower_id`) USING BTREE,
+  INDEX `target_item`(`target_item_id`) USING BTREE,
+  INDEX `target_user`(`target_user_id`) USING BTREE,
+  INDEX `admin`(`option_id`) USING BTREE,
+  CONSTRAINT `admin` FOREIGN KEY (`option_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `pub_er` FOREIGN KEY (`whistleblower_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `target_item` FOREIGN KEY (`target_item_id`) REFERENCES `commodity` (`item_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `target_user` FOREIGN KEY (`target_user_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -69,13 +85,19 @@ CREATE TABLE `report`  (
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction`  (
   `transaction_id` int(0) NOT NULL AUTO_INCREMENT,
-  `seller_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `type` tinyint(1) NULL DEFAULT NULL,
-  `customer_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `seller_id` int(0) NULL DEFAULT NULL,
+  `type` int(0) NULL DEFAULT NULL,
+  `customer_id` int(0) NULL DEFAULT NULL,
   `item_id` int(0) NULL DEFAULT NULL,
   `deal_time` datetime(0) NULL DEFAULT NULL,
-  `state` tinyint(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`transaction_id`, `seller_id`) USING BTREE
+  `state` int(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`transaction_id`) USING BTREE,
+  INDEX `tran_seller`(`seller_id`) USING BTREE,
+  INDEX `tran_customer`(`customer_id`) USING BTREE,
+  INDEX `tran_item`(`item_id`) USING BTREE,
+  CONSTRAINT `tran_customer` FOREIGN KEY (`customer_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `tran_item` FOREIGN KEY (`item_id`) REFERENCES `commodity` (`item_id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `tran_seller` FOREIGN KEY (`seller_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -87,16 +109,17 @@ CREATE TABLE `user`  (
   `wx_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `birthday` date NULL DEFAULT NULL,
-  `gender` tinyint(1) NULL DEFAULT NULL,
-  `is_login` tinyint(1) NULL DEFAULT NULL,
+  `gender` int(0) NULL DEFAULT NULL,
+  `is_login` int(0) NULL DEFAULT NULL,
   `token` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `token_expire` timestamp(6) NULL DEFAULT NULL,
   `last_op_time` timestamp(6) NULL DEFAULT NULL,
   `credit` int(0) NULL DEFAULT NULL,
   `balance` double(255, 0) NULL DEFAULT NULL,
   `icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `is_admin` tinyint(1) NULL DEFAULT 0,
-  PRIMARY KEY (`uid`, `wx_id`) USING BTREE
+  `is_admin` int(0) NULL DEFAULT 0,
+  PRIMARY KEY (`wx_id`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
