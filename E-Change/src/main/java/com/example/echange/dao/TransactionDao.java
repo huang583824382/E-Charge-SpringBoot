@@ -1,4 +1,4 @@
 package com.example.echange.dao;
 
-public interface userDao {
+public class TransactionDao {
 }

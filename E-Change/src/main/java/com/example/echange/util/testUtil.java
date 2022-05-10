@@ -1,4 +1,4 @@
 package com.example.echange.util;
 
-public interface testUtil {
+public class testUtil {
 }
