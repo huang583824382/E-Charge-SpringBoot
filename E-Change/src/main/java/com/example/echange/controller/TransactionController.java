@@ -1,10 +1,12 @@
 package com.example.echange.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/trans")
+@CrossOrigin(origins = "*")
 public class TransactionController {
     //获取订单列表
     //任务分派

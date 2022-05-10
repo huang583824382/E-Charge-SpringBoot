@@ -1,10 +1,12 @@
 package com.example.echange.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*")
 public class AdminController {
     //获取待处理信息
     //获取待审核列表

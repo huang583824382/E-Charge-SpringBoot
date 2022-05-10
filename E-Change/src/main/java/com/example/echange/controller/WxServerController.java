@@ -5,12 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cmdy")
-@CrossOrigin(origins = "*")
-public class CommodityController {
-    //获取商品详情
-    //发布商品
-    //编辑商品
-    //删除商品
-    //
+@RequestMapping("/wx")
+@CrossOrigin("/wx") //应当只允许微信服务器访问，暂未知道服务器
+public class WxServerController {
+    //接收微信服务器数据
 }

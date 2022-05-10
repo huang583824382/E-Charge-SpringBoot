@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/start")
+@CrossOrigin(origins = "*")
 public class LoginController {
     @Autowired
     LoginService start;
