@@ -14,10 +14,10 @@ public class LoginController {
     @Autowired
     LoginService start;
 
-    @PostMapping("login") //接收客户端传来的wx通行证，与wx服务器通信，返回登录结果
+    @GetMapping("login") //接收客户端传来的wx通行证，与wx服务器通信，返回登录结果
     @ResponseBody
     public Object loginin(HttpServletRequest Request, HttpServletResponse response){
-        return null;
+        return "null";
     }
     @PostMapping("register") //接收注册数据，存储数据库并绑定，与wx服务器通信，返回登录结果
     @ResponseBody
