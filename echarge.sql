@@ -14,6 +14,8 @@
  Date: 07/05/2022 19:09:17
 */
 
+create user 'echarge'@'localhost ' identified by '123456';
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -127,3 +129,5 @@ CREATE TABLE `user`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+grant all on echarge.* to 'echarge'@'localhost';
