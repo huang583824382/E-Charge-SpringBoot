@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/trans")
 @CrossOrigin(origins = "*")
 public class TransactionController {
-    //获取订单列表
-    //任务分派
-    //任务结束
-    //购买商品
-    //确认收货
+    //获取订单列表 list
+    //任务分派 assign
+    //购买商品 buy
+    //确认购买 confirm_buy
+    //确认收货/任务结束 confirm_finish
     //
 }

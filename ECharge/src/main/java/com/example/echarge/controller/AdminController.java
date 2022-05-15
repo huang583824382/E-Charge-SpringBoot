@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 @CrossOrigin(origins = "*")
 public class AdminController {
-    //获取待处理信息
+    //获取待处理信息 list
     //获取待审核列表
     //审核商品
     //获取举报列表

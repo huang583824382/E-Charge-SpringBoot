@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
 public class UserController {
-    //获取用户信息
-    //更改用户信息
+    //获取用户信息 info
+    //更改用户信息 edit
     //
 }

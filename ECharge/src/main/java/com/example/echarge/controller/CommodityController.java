@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cmdy")
+@RequestMapping("/commodity")
 @CrossOrigin(origins = "*")
 public class CommodityController {
     //获取商品详情

@@ -1,4 +1,4 @@
 package com.example.echarge.dao;
 
-public class CommodityDao {
+public interface CommodityDao {
 }

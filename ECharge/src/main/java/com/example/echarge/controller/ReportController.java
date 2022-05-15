@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/report")
 @CrossOrigin(origins = "*")
 public class ReportController {
-    //举报商品
-    //举报用户
+    //举报商品 commodity
+    //举报用户 user
     //
 }
