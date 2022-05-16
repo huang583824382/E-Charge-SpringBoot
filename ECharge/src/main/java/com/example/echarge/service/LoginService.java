@@ -42,11 +42,11 @@ public class LoginService {
 //        数据库中查找用户
         UserEntity user = userDao.findByWxId(openid);
         if(user == null){
-            res.put("login", false);
+            res.put("option_code", 0); //登录失败
             System.out.println("no user");
         }
         else{
-            res.put("login", true);
+            res.put("option_code", 1);
             res.put("uid", user.getUid());
             System.out.println("has user");
         }

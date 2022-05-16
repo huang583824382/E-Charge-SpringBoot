@@ -10,6 +10,9 @@
 |接收|说明|
 |--|--|
 |option_code|是否登录成功，或者是否需要注册|
+|session_id||
+|openid||
+|uid||
 
 
 ## `/start/register`
@@ -215,6 +218,10 @@
 |接收|说明|
 |--|--|
 |option_code|是否举报成功|
+
+## `/chat/recv`
+
+
 
 # 以下为admin相关
 ## 后端在每次接收到请求时要判断是否有权限，无权限返回 无权限的option_code

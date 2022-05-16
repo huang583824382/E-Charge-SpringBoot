@@ -17,9 +17,10 @@ public class LoginController {
 
     @PostMapping("login") //接收客户端传来的wx通行证，与wx服务器通信，返回登录结果
     @ResponseBody
-    public Object loginin(HttpServletRequest Request, HttpServletResponse response,  String code){
+    public Object loginin(HttpServletRequest Request, HttpServletResponse response, String code){
         System.out.println("recieved "+code);
 //        请求微信服务器
+//        获取user信息回复
         LinkedHashMap<String, Object> data = loginService.getUserInfo(code);
         return data;
     }
