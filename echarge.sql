@@ -14,7 +14,7 @@
  Date: 07/05/2022 19:09:17
 */
 
-create user 'echarge'@'localhost ' identified by '123456';
+CREATE USER IF NOT EXISTS 'echarge'@'localhost ' IDENTIFIED BY '123456';
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -118,8 +118,7 @@ CREATE TABLE `user`  (
   `gender` int(0) NULL DEFAULT NULL,
   `is_login` int(0) NULL DEFAULT NULL,
   `token` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `token_expire` timestamp(6) NULL DEFAULT NULL,
-  `last_op_time` timestamp(6) NULL DEFAULT NULL,
+  `phone_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `credit` int(0) NULL DEFAULT NULL,
   `balance` double(255, 0) NULL DEFAULT NULL,
   `icon_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
@@ -130,4 +129,4 @@ CREATE TABLE `user`  (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-grant all on echarge.* to 'echarge'@'localhost';
+GRANT all ON echarge.* TO 'echarge'@'localhost';
