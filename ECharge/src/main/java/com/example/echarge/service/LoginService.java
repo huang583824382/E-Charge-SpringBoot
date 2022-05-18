@@ -65,6 +65,8 @@ public class LoginService {
             System.out.println("no user");
         }
         else{
+            user.setToken(session);
+            userDao.saveAndFlush(user);
             res.put("option_code", 1);
             res.put("uid", user.getUid());
             System.out.println("has user");
