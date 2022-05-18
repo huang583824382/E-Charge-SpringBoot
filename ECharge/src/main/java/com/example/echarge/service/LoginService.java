@@ -59,8 +59,12 @@ public class LoginService {
             user = new UserEntity();
             user.setWxId(openid);
             user.setToken(session);
-            user.setName(UUID.randomUUID().toString().replace("-", ""));
+//            user.setName(UUID.randomUUID().toString().replace("-", ""));
             userDao.saveAndFlush(user);
+            res.put("option_code", 0); //登录失败
+            System.out.println("no user");
+        }
+        else if(user.getName() == null){
             res.put("option_code", 0); //登录失败
             System.out.println("no user");
         }
@@ -84,6 +88,14 @@ public class LoginService {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         res.put("info", info);
         res.put("uid", uid);
+        return res;
+    }
+    private LinkedHashMap<String, Object> assembleRetVal(String info, Integer uid, String name, String avatorUrl) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        res.put("info", info);
+        res.put("uid", uid);
+        res.put("name", name);
+        res.put("avator", avatorUrl);
         return res;
     }
 
@@ -155,6 +167,6 @@ public class LoginService {
         user.setBalance(100.0);
         userDao.saveAndFlush(user);
 
-        return assembleRetVal("success", user.getUid());
+        return assembleRetVal("success", user.getUid(), user.getName(), user.getIconUrl());
     }
 }
