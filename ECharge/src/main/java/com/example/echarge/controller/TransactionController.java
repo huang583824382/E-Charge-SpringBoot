@@ -32,9 +32,22 @@ public class TransactionController {
         System.out.println("customer"+isCustomer);
         UserEntity user = userService.getUserByToken(token);
         LinkedList<Object> res = transactionService.getTransactionListByStateAndIndex(user.getUid(),state, lastIndex, isCustomer);
-
         return res;
     }
+    @PostMapping("detail")
+    @ResponseBody
+    public LinkedHashMap<String, Object> getTransactionDetail(String token, int transactionID){
+        UserEntity user = userService.getUserByToken(token);
+        LinkedHashMap<String, Object> res = new LinkedHashMap<>();
+        if(user!=null){
+            res = transactionService.getTransactionDetail(transactionID); //可能可以判断uid是否是订单中有权限的用户
+        }
+        else{
+            res.put("Code", "fail");
+        }
+        return res;
+    }
+
     @PostMapping("info")
     @ResponseBody
     public LinkedList<Object> getTransactionInfo(String token){

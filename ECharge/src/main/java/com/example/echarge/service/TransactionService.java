@@ -5,6 +5,7 @@ import com.example.echarge.dao.TransactionDao;
 import com.example.echarge.dao.UserDao;
 import com.example.echarge.entity.CommodityEntity;
 import com.example.echarge.entity.TransactionEntity;
+import com.example.echarge.entity.UserEntity;
 import com.example.echarge.util.getCoverUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,24 @@ public class TransactionService {
 
     public TransactionEntity getConfirmableTrans(int transId) {
         return transactionDao.findByTransactionIdAndState(transId, 2);
+    }
+    
+    public LinkedHashMap<String, Object> getTransactionDetail(int transactionID){
+        TransactionEntity transaction = transactionDao.getById(transactionID);
+        CommodityEntity commodity = commodityDao.getById(transaction.getItemId());
+        LinkedHashMap<String, Object> res = new LinkedHashMap<>();
+        res.put("commodityID", commodity.getItemId());
+        res.put("coverUrl", getCoverUtil.getCover(commodity.getFigureUrls()));
+        res.put("title", commodity.getTitle());
+        res.put("price", commodity.getPrice());
+        res.put("transTime", transaction.getDealTime());
+        res.put("sellerID", transaction.getSellerId());
+        res.put("place", commodity.getPlace()==null?"":commodity.getPlace());
+        res.put("timeExcepted", commodity.getTimeExcepted()==null?"":commodity.getTimeExcepted());
+        res.put("state", transaction.getState());
+        res.put("type", transaction.getType());
+        UserEntity seller = userDao.findByUid(transaction.getSellerId());
+        res.put("sellerName", seller.getName());
+        return res;
     }
 }
