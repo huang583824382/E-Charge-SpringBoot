@@ -166,4 +166,29 @@ public class TransactionController {
         res.put("code", "success");
         return res;
     }
+
+    // 退款
+    @PostMapping("/refund")
+    @ResponseBody
+    public LinkedHashMap<String, Object> dealWithRefund(String token, int transId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        // 检查token和transactionId
+        UserEntity user = userService.getUserByToken(token);
+        TransactionEntity trans = transactionService.getConfirmableTrans(transId);
+        if(user == null || trans == null) {
+            res.put("code", "fail");
+            return res;
+        }
+        // 有订单数据，获取对应的商品
+        CommodityEntity comm = commodityService.getByItemId(trans.getItemId());
+        // 更新transaction状态
+        trans.setState(5);
+        transactionService.updateTrans(trans);
+        // 更新user余额
+        user.setBalance(user.getBalance()+comm.getPrice());
+        userService.updateUser(user);
+
+        res.put("code", "success");
+        return res;
+    }
 }
