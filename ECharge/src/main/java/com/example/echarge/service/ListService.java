@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Math.min;
 
@@ -38,17 +37,66 @@ public class ListService {
         Collections.shuffle(list);
         return list.subList(0, min(size, list.size()));
     }
+
+    // id 降序，也即时间降序
+    static Comparator<CommodityEntity> id = new Comparator<CommodityEntity>() {
+        @Override
+        public int compare(CommodityEntity o1, CommodityEntity o2) {
+            return o2.getItemId() - o1.getItemId();
+        }
+    };
+
+    // 价格降序
+    static Comparator<CommodityEntity> priceDesc = new Comparator<CommodityEntity>() {
+        @Override
+        public int compare(CommodityEntity o1, CommodityEntity o2) {
+            return Double.compare(o1.getItemId(), o2.getItemId());
+        }
+    };
+
+    // 价格升序
+    static Comparator<CommodityEntity> priceAsc = new Comparator<CommodityEntity>() {
+        @Override
+        public int compare(CommodityEntity o1, CommodityEntity o2) {
+            return Double.compare(o2.getItemId(), o1.getItemId());
+        }
+    };
+
     /**
      * 有筛选条件随机获取commodities，在标题和标签中查找对应字段
      * @param type 类型 0：商品；1：任务
      * @param size 数量
      * @param search 筛选信息
-     * @return 获取的commodities列表
+     * @param order 排序方式 1：升序；2：降序；3：时间降序
+     * @param lastId 上次最后的的Id，用于分隔
+     * @return {list: commodities列表; totalCount: 符合条件的commodities总数量}
      */
-    public List<CommodityEntity> getSelectedList(int type, int size, String search) {
+    public LinkedHashMap<String, Object> getSelectedList(int type, int size, String search, int order, int lastId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         List<CommodityEntity> list = commodityDao.getAllCommodityByCondition(search, type);
-        // 随机排序
-        Collections.shuffle(list);
-        return list.subList(0, min(size, list.size()));
+        // 列表排序
+        switch (order) {
+            case 1: list.sort(priceAsc); break;
+            case 2: list.sort(priceDesc); break;
+            case 3: list.sort(id); break;
+        }
+        int startPos = 0;
+        // 接着上次查询的范围
+        if(lastId != -1) {
+            Optional<CommodityEntity> commodityOp = list.stream().filter(commodity -> commodity.getItemId() == lastId).findFirst();
+            if(commodityOp.isPresent()) {
+                startPos = list.indexOf(commodityOp.get());
+                if (startPos + 1 < list.size()) {
+                    startPos++;
+                }
+            }
+        }
+        // 有效的起始位置，返回对应的数据
+        if(startPos+1 < list.size()) {
+            res.put("list", list.subList(startPos, min(startPos+size, list.size())));
+            res.put("totalCount", list.size());
+        }
+
+        return res;
     }
 }

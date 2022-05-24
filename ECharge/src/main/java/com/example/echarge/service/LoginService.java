@@ -59,12 +59,13 @@ public class LoginService {
             user = new UserEntity();
             user.setWxId(openid);
             user.setToken(session);
+            user.setName("temp_user");
 //            user.setName(UUID.randomUUID().toString().replace("-", ""));
             userDao.saveAndFlush(user);
             res.put("option_code", 0); //登录失败
             System.out.println("no user");
         }
-        else if(user.getName() == null){
+        else if(user.getGender() == null){
             res.put("option_code", 0); //登录失败
             System.out.println("no user");
         }

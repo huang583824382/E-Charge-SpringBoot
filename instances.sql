@@ -16,6 +16,28 @@ insert into user (uid, wx_id, name) values (10, '666', 'bbb');
 insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
 values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 199, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09a.png;https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 01:02:03', 0);
 insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 299, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 01:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 399, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 02:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 499, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 03:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 599, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 04:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 699, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 05:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 799, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 06:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 899, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 07:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 999, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 08:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1099, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 09:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1199, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 10:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1299, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 11:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
 values ('纯色纯棉休闲圆领短袖T恤纯白亲肤厚柔软细腻面料纯白短袖套头T恤', 0, 2, 299, 'T恤', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-08b.png', '爆款T恤', '2022-03-15 04:05:06', 1);
 insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
 values ('运动连帽拉链卫衣休闲开衫长袖多色运动细绒面料运动上衣', 0, 3, 399, '卫衣', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-17a.png;https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-17a1.png', '帅气卫衣~', '2022-02-01 07:08:09', 2);
