@@ -6,11 +6,11 @@ import java.sql.Date;
 @Entity
 @Table(name = "user", schema = "echarge", catalog = "")
 public class UserEntity {
-    @Basic
-    @Column(name = "uid")
-    private int uid;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "uid")
+    private int uid;
+    @Basic
     @Column(name = "wx_id")
     private String wxId;
     @Basic
