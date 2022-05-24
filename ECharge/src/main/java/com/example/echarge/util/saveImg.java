@@ -1,9 +1,7 @@
 package com.example.echarge.util;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 public class saveImg {

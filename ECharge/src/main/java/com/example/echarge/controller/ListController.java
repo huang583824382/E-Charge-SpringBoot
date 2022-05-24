@@ -41,7 +41,7 @@ public class ListController {
         if(user == null) {
            return null;
         }
-        return listService.getList(0, size);
+        return listService.getList(0, size, 0);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ListController {
         }
         System.out.println("123");
         System.out.println("456");
-        return listService.getList(1, size);
+        return listService.getList(1, size, 0);
     }
 
     /**
@@ -86,7 +86,7 @@ public class ListController {
         // 有条件查询
         res = listService.getSelectedList(type, size, search, order, lastId);
         res.put("code", "success");
-
+        System.out.println(res);
         return res;
     }
 }

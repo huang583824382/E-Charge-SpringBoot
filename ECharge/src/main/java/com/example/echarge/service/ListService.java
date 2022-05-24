@@ -31,8 +31,8 @@ public class ListService {
      * @param size 数量
      * @return 获取的commodities列表
      */
-    public List<CommodityEntity> getList(int type, int size) {
-        List<CommodityEntity> list = commodityDao.findAllByType(type);
+    public List<CommodityEntity> getList(int type, int size, int state) {
+        List<CommodityEntity> list = commodityDao.findAllByTypeAndState(type, 0);
         // 随机排序
         Collections.shuffle(list);
         return list.subList(0, min(size, list.size()));
@@ -74,6 +74,7 @@ public class ListService {
     public LinkedHashMap<String, Object> getSelectedList(int type, int size, String search, int order, int lastId) {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         List<CommodityEntity> list = commodityDao.getAllCommodityByCondition(search, type);
+
         // 列表排序
         switch (order) {
             case 1: list.sort(priceAsc); break;
@@ -92,11 +93,11 @@ public class ListService {
             }
         }
         // 有效的起始位置，返回对应的数据
-        if(startPos+1 < list.size()) {
+        if(startPos < list.size()) {
             res.put("list", list.subList(startPos, min(startPos+size, list.size())));
             res.put("totalCount", list.size());
         }
-
+        System.out.println(res);
         return res;
     }
 }

@@ -36,10 +36,14 @@ public class CommodityEntity {
     private Timestamp releaseTime;
     @Basic
     @Column(name = "state")
-    private Byte state;
+    private Integer state;
+    @Basic
+    @Column(name = "place")
+    private String place;
+    @Basic
+    @Column(name = "time_excepted")
+    private String timeExcepted;
 
-    @Id
-    @Column(name = "item_id")
     public int getItemId() {
         return itemId;
     }
@@ -48,8 +52,6 @@ public class CommodityEntity {
         this.itemId = itemId;
     }
 
-    @Basic
-    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -58,8 +60,6 @@ public class CommodityEntity {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "type")
     public Integer getType() {
         return type;
     }
@@ -76,8 +76,6 @@ public class CommodityEntity {
         this.pubId = pubId;
     }
 
-    @Basic
-    @Column(name = "price")
     public Double getPrice() {
         return price;
     }
@@ -86,8 +84,6 @@ public class CommodityEntity {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "tags")
     public String getTags() {
         return tags;
     }
@@ -96,8 +92,6 @@ public class CommodityEntity {
         this.tags = tags;
     }
 
-    @Basic
-    @Column(name = "figure_urls")
     public String getFigureUrls() {
         return figureUrls;
     }
@@ -106,8 +100,6 @@ public class CommodityEntity {
         this.figureUrls = figureUrls;
     }
 
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -116,8 +108,6 @@ public class CommodityEntity {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "release_time")
     public Timestamp getReleaseTime() {
         return releaseTime;
     }
@@ -126,14 +116,28 @@ public class CommodityEntity {
         this.releaseTime = releaseTime;
     }
 
-    @Basic
-    @Column(name = "state")
-    public Byte getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Byte state) {
+    public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getTimeExcepted() {
+        return timeExcepted;
+    }
+
+    public void setTimeExcepted(String timeExcepted) {
+        this.timeExcepted = timeExcepted;
     }
 
     @Override
@@ -153,6 +157,8 @@ public class CommodityEntity {
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (releaseTime != null ? !releaseTime.equals(that.releaseTime) : that.releaseTime != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
+        if (place != null ? !place.equals(that.place) : that.place != null) return false;
+        if (timeExcepted != null ? !timeExcepted.equals(that.timeExcepted) : that.timeExcepted != null) return false;
 
         return true;
     }
@@ -169,6 +175,8 @@ public class CommodityEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (releaseTime != null ? releaseTime.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (place != null ? place.hashCode() : 0);
+        result = 31 * result + (timeExcepted != null ? timeExcepted.hashCode() : 0);
         return result;
     }
 }

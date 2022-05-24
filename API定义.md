@@ -142,18 +142,33 @@
 |--|--|
 |option_code|确认收货/任务完成 成功|
 
+## `/trans/info`
+|发送|说明|
+|--|--|
+|token||
+
+|接收|说明|
+|--|--|
+|
+
+
 ## `/trans/list`
 
 |发送|说明|
 |--|--|
 |state|查询什么类型的订单|
+|lastIndex|用于续拉|
 
 |接收（一个数组item内容)|说明|
+|--|--|
 |transaction_id||
 |deal_time|交易时间|
 |type|任务还是商品|
 |state|订单状态|
 |figure_url|封面图片|
+|title||
+|price||
+
 
 ## `/trans/assign` 
 |发送|说明|

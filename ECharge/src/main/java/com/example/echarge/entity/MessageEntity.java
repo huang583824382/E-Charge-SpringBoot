@@ -26,8 +26,6 @@ public class MessageEntity {
     @Column(name = "content")
     private String content;
 
-    @Id
-    @Column(name = "message_id")
     public int getMessageId() {
         return messageId;
     }
@@ -36,8 +34,6 @@ public class MessageEntity {
         this.messageId = messageId;
     }
 
-    @Basic
-    @Column(name = "type")
     public Integer getType() {
         return type;
     }
@@ -62,8 +58,6 @@ public class MessageEntity {
         this.receiverId = receiverId;
     }
 
-    @Basic
-    @Column(name = "send_time")
     public Timestamp getSendTime() {
         return sendTime;
     }
@@ -72,8 +66,6 @@ public class MessageEntity {
         this.sendTime = sendTime;
     }
 
-    @Basic
-    @Column(name = "content")
     public String getContent() {
         return content;
     }

@@ -32,8 +32,6 @@ public class ReportEntity {
     @Column(name = "option_id")
     private Integer optionId;
 
-    @Id
-    @Column(name = "report_id")
     public int getReportId() {
         return reportId;
     }
@@ -42,8 +40,6 @@ public class ReportEntity {
         this.reportId = reportId;
     }
 
-    @Basic
-    @Column(name = "type")
     public Integer getType() {
         return type;
     }
@@ -76,8 +72,6 @@ public class ReportEntity {
         this.whistleblowerId = whistleblowerId;
     }
 
-    @Basic
-    @Column(name = "report_time")
     public Timestamp getReportTime() {
         return reportTime;
     }
@@ -86,8 +80,6 @@ public class ReportEntity {
         this.reportTime = reportTime;
     }
 
-    @Basic
-    @Column(name = "state")
     public Integer getState() {
         return state;
     }

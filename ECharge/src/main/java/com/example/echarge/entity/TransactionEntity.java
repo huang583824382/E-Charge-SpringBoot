@@ -29,8 +29,6 @@ public class TransactionEntity {
     @Column(name = "state")
     private Integer state;
 
-    @Id
-    @Column(name = "transaction_id")
     public int getTransactionId() {
         return transactionId;
     }
@@ -47,8 +45,6 @@ public class TransactionEntity {
         this.sellerId = sellerId;
     }
 
-    @Basic
-    @Column(name = "type")
     public Integer getType() {
         return type;
     }
@@ -73,8 +69,6 @@ public class TransactionEntity {
         this.itemId = itemId;
     }
 
-    @Basic
-    @Column(name = "deal_time")
     public Timestamp getDealTime() {
         return dealTime;
     }
@@ -83,8 +77,6 @@ public class TransactionEntity {
         this.dealTime = dealTime;
     }
 
-    @Basic
-    @Column(name = "state")
     public Integer getState() {
         return state;
     }

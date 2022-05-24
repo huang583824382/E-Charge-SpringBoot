@@ -37,7 +37,7 @@ CREATE TABLE `commodity`  (
   `figure_urls` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `release_time` datetime(0) NULL DEFAULT NULL,
-  `state` tinyint(0) NULL DEFAULT NULL,
+  `state` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`item_id`) USING BTREE,
   INDEX `item_puber`(`pub_id`) USING BTREE,
   CONSTRAINT `item_puber` FOREIGN KEY (`pub_id`) REFERENCES `user` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL

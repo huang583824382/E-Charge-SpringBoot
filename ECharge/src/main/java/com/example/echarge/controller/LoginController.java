@@ -8,16 +8,13 @@ package com.example.echarge.controller;
 
 import com.example.echarge.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/start")
