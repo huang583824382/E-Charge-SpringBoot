@@ -15,4 +15,6 @@ public interface TransactionDao extends JpaRepository<TransactionEntity, Integer
     LinkedList<TransactionEntity> findByCustomerIdAndTransactionIdGreaterThan(Integer customerId, Integer transId);
     LinkedList<TransactionEntity> findBySellerIdAndTransactionIdGreaterThan(Integer sellerId, Integer transId);
 
+    TransactionEntity findByTransactionIdAndState(int transId, int state);
+
 }

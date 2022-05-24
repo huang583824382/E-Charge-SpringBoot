@@ -2,6 +2,7 @@ package com.example.echarge.service;
 
 import com.example.echarge.dao.UserDao;
 import com.example.echarge.entity.UserEntity;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,9 @@ public class UserService {
         res.put("iconUrl",user.getIconUrl());
         return res;
     }
+
+    public void updateUser(UserEntity user) {
+        userDao.saveAndFlush(user);
+    }
+
 }

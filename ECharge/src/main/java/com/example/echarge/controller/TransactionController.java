@@ -1,11 +1,18 @@
 package com.example.echarge.controller;
 
+import com.example.echarge.dao.TransactionDao;
+import com.example.echarge.entity.CommodityEntity;
+import com.example.echarge.entity.TransactionEntity;
 import com.example.echarge.entity.UserEntity;
+import com.example.echarge.service.CommodityService;
 import com.example.echarge.service.TransactionService;
 import com.example.echarge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 @RestController
@@ -14,6 +21,8 @@ import java.util.LinkedList;
 public class TransactionController {
     @Autowired
     UserService userService;
+    @Autowired
+    CommodityService commodityService;
     @Autowired
     TransactionService transactionService;
     //获取订单列表 list
@@ -38,8 +47,110 @@ public class TransactionController {
         }
     }
     //任务分派 assign
-    //购买商品 buy
-    //确认购买 confirm_buy
-    //确认收货/任务结束 confirm_finish
-    //
+
+
+    //生成订单 buy
+    @PostMapping("/buy")
+    @ResponseBody
+    public LinkedHashMap<String, Object> genTransaction(String token, int itemId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        // 检查token
+        UserEntity user = userService.getUserByToken(token);
+        if(user == null) {
+            res.put("code", "fail");
+            return res;
+        }
+        // 检查itemId
+        if(!commodityService.canBeBought(itemId)) {
+            res.put("code", "has been bought");
+            return res;
+        }
+        // 可以创建，插入数据
+        TransactionEntity trans = new TransactionEntity();
+        trans.setItemId(itemId);
+        trans.setCustomerId(user.getUid());
+        trans.setState(1);
+        trans.setDealTime(new Timestamp((new Date()).getTime()));
+        transactionService.addTrans(trans);
+        // 设置commodity状态为1，即已被购买
+        CommodityEntity comm = commodityService.getByItemId(itemId);
+        comm.setState(1);
+        commodityService.updateCommodity(comm);
+        res.put("code", "success");
+        return res;
+    }
+    //付款 pay
+    @PostMapping("/pay")
+    @ResponseBody
+    public LinkedHashMap<String, Object> payTransaction(String token, int transId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        // 检查token和transactionId
+        UserEntity user = userService.getUserByToken(token);
+        TransactionEntity trans = transactionService.getPayableTrans(transId);
+        if(user == null || trans == null) {
+            res.put("code", "fail");
+            return res;
+        }
+        // 有订单数据，获取对应的商品
+        CommodityEntity comm = commodityService.getByItemId(trans.getItemId());
+        // 判断余额是否足够
+        if(user.getBalance() < comm.getPrice()) {
+            res.put("code", "insufficient balance");
+            return res;
+        }
+        // 更新transaction
+        trans.setState(2);
+        transactionService.updateTrans(trans);
+        // 更新user余额
+        user.setBalance(user.getBalance()-comm.getPrice());
+        userService.updateUser(user);
+        res.put("code", "success");
+        return res;
+    }
+
+    //确认收货/任务结束 confirm
+    @PostMapping("/confirm")
+    @ResponseBody
+    public LinkedHashMap<String, Object> confirmReceipt(String token, int transId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        // 检查token和transactionId
+        UserEntity user = userService.getUserByToken(token);
+        TransactionEntity trans = transactionService.getConfirmableTrans(transId);
+        if(user == null || trans == null) {
+            res.put("code", "fail");
+            return res;
+        }
+        // 有订单数据，获取对应的商品
+        CommodityEntity comm = commodityService.getByItemId(trans.getItemId());
+        // 更新transaction状态
+        trans.setState(3);
+        transactionService.updateTrans(trans);
+        res.put("code", "success");
+        return res;
+    }
+
+    // 取消订单
+    @PostMapping("/cancel")
+    @ResponseBody
+    public LinkedHashMap<String, Object> cancelTransaction(String token, int transId) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        // 检查token和transactionId
+        UserEntity user = userService.getUserByToken(token);
+        TransactionEntity trans = transactionService.getPayableTrans(transId);
+        if(user == null || trans == null) {
+            res.put("code", "fail");
+            return res;
+        }
+        // 有订单数据，获取对应的商品
+        CommodityEntity comm = commodityService.getByItemId(trans.getItemId());
+        // 更新transaction
+        trans.setState(0);
+        transactionService.updateTrans(trans);
+        // 更新commodity
+        comm.setState(0);
+        commodityService.updateCommodity(comm);
+
+        res.put("code", "success");
+        return res;
+    }
 }

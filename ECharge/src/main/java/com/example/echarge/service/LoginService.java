@@ -92,12 +92,12 @@ public class LoginService {
         res.put("uid", uid);
         return res;
     }
-    private LinkedHashMap<String, Object> assembleRetVal(String info, Integer uid, String name, String avatorUrl) {
+    private LinkedHashMap<String, Object> assembleRetVal(String info, Integer uid, String name, String avatarUrl) {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         res.put("info", info);
         res.put("uid", uid);
         res.put("name", name);
-        res.put("avator", avatorUrl);
+        res.put("avatar", avatarUrl);
         return res;
     }
 

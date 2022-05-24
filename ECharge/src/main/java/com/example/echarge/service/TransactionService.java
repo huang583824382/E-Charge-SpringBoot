@@ -63,4 +63,17 @@ public class TransactionService {
         }
         return res;
     }
+
+    public void addTrans(TransactionEntity trans) {
+        transactionDao.saveAndFlush(trans);
+    }
+    public void updateTrans(TransactionEntity trans) { transactionDao.saveAndFlush(trans); }
+
+    public TransactionEntity getPayableTrans(int transId) {
+        return transactionDao.findByTransactionIdAndState(transId, 1);
+    }
+
+    public TransactionEntity getConfirmableTrans(int transId) {
+        return transactionDao.findByTransactionIdAndState(transId, 2);
+    }
 }
