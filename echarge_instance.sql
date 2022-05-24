@@ -14,8 +14,14 @@
  Date: 24/05/2022 15:48:18
 */
 
+CREATE USER IF NOT EXISTS 'echarge'@'localhost ' IDENTIFIED BY '123456';
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE DATABASE IF NOT EXISTS echarge;
+
+USE echarge;
 
 -- ----------------------------
 -- Table structure for commodity
@@ -52,6 +58,29 @@ INSERT INTO `commodity` VALUES (7, '紫金港蓝田求取外卖', 1, 7, 3.00, '�
 INSERT INTO `commodity` VALUES (8, '华家池帮领快递', 1, 8, 5.00, '快递', '', '明天前送至×宿舍', '2022-04-29 13:12:28', 2, '华家池', NULL);
 INSERT INTO `commodity` VALUES (9, '西溪求借书', 1, 9, 10.00, '借书', '', '西溪图书馆借一本《三体》，明天前送至×宿舍', '2022-03-07 19:52:43', 3, '西溪', NULL);
 INSERT INTO `commodity` VALUES (10, '之江求篮球', 1, 10, 60.00, '篮球', '', '有意者私聊', '2022-04-08 15:22:13', 0, '之江', NULL);
+
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 299, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 01:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 399, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 02:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 499, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 03:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 599, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 04:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 699, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 05:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 799, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 06:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 899, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 07:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 999, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 08:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1099, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 09:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1199, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 10:02:50', 0);
+insert into commodity (title, type, pub_id, price, tags, figure_urls, description, release_time, state) 
+values ('白色短袖连衣裙荷叶边裙摆宽松韩版休闲纯白清爽优雅连衣裙', 0, 1, 1299, '裙子;休闲', 'https://cdn-we-retail.ym.tencent.com/tsr/goods/nz-09b.png', '超值裙裙！', '2022-02-15 11:02:50', 0);
 
 -- ----------------------------
 -- Table structure for message
@@ -166,6 +195,7 @@ INSERT INTO `user` VALUES (2, '456', 'def', NULL, NULL, NULL, NULL, NULL, NULL, 
 INSERT INTO `user` VALUES (9, '555', 'aaa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `user` VALUES (10, '666', 'bbb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `user` VALUES (3, '789', 'ghi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `user` VALUES (20, 'o8iME6HthKvABYudXaZIYDeAgifc', 'Unicorn.', NULL, 1, NULL, '1l2tT14VG9v3oi3c2v0pyg==', '15858415838', 100, 100, 'https://localhost:8081/img/56a261b6ce324982bd20d5f71850a3ad.jpg', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+GRANT all ON echarge.* TO 'echarge'@'localhost';
