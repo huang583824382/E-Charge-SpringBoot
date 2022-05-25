@@ -1,8 +1,10 @@
 package com.example.echarge.service;
 
+import com.example.echarge.dao.CommentDao;
 import com.example.echarge.dao.CommodityDao;
 import com.example.echarge.dao.TransactionDao;
 import com.example.echarge.dao.UserDao;
+import com.example.echarge.entity.CommentEntity;
 import com.example.echarge.entity.CommodityEntity;
 import com.example.echarge.entity.TransactionEntity;
 import com.example.echarge.entity.UserEntity;
@@ -21,6 +23,8 @@ public class TransactionService {
     TransactionDao transactionDao;
     @Autowired
     CommodityDao commodityDao;
+    @Autowired
+    CommentDao commentDao;
 
     public LinkedList<Object> getTransactionListByStateAndIndex(int uid, int state, int index, int isCustomer){
         LinkedList<Object> res = new LinkedList<>();
@@ -65,8 +69,12 @@ public class TransactionService {
         return res;
     }
 
-    public void addTrans(TransactionEntity trans) {
-        transactionDao.saveAndFlush(trans);
+    public void addComment(CommentEntity comment){
+        commentDao.saveAndFlush(comment);
+    }
+
+    public TransactionEntity addTrans(TransactionEntity trans) {
+        return transactionDao.saveAndFlush(trans);
     }
     public void updateTrans(TransactionEntity trans) { transactionDao.saveAndFlush(trans); }
 
@@ -74,8 +82,8 @@ public class TransactionService {
         return transactionDao.findByTransactionIdAndState(transId, 1);
     }
 
-    public TransactionEntity getConfirmableTrans(int transId) {
-        return transactionDao.findByTransactionIdAndState(transId, 2);
+    public TransactionEntity getTransByState(int transId, int state) {
+        return transactionDao.findByTransactionIdAndState(transId, state);
     }
     
     public LinkedHashMap<String, Object> getTransactionDetail(int transactionID){
@@ -89,7 +97,7 @@ public class TransactionService {
         res.put("transTime", transaction.getDealTime());
         res.put("sellerID", transaction.getSellerId());
         res.put("place", commodity.getPlace()==null?"":commodity.getPlace());
-        res.put("timeExcepted", commodity.getTimeExcepted()==null?"":commodity.getTimeExcepted());
+        res.put("timeExcepted", commodity.getTimeExpected()==null?"":commodity.getTimeExpected());
         res.put("state", transaction.getState());
         res.put("type", transaction.getType());
         UserEntity seller = userDao.findByUid(transaction.getSellerId());
