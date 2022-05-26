@@ -55,7 +55,6 @@ public class LoginController {
         }
         /* 添加用户记录，保存图片 */
         res = loginService.addUser(session_key, avatar_url, nickName, phoneNumber, gender, img);
-
         return res;
     }
 

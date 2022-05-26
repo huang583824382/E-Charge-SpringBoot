@@ -23,9 +23,6 @@ public class UserEntity {
     @Column(name = "gender")
     private Integer gender;
     @Basic
-    @Column(name = "is_login")
-    private Integer isLogin;
-    @Basic
     @Column(name = "token")
     private String token;
     @Basic
@@ -82,14 +79,6 @@ public class UserEntity {
 
     public void setGender(Integer gender) {
         this.gender = gender;
-    }
-
-    public Integer getIsLogin() {
-        return isLogin;
-    }
-
-    public void setIsLogin(Integer isLogin) {
-        this.isLogin = isLogin;
     }
 
     public String getToken() {
@@ -152,7 +141,6 @@ public class UserEntity {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
         if (gender != null ? !gender.equals(that.gender) : that.gender != null) return false;
-        if (isLogin != null ? !isLogin.equals(that.isLogin) : that.isLogin != null) return false;
         if (token != null ? !token.equals(that.token) : that.token != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
         if (credit != null ? !credit.equals(that.credit) : that.credit != null) return false;
@@ -170,7 +158,6 @@ public class UserEntity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (isLogin != null ? isLogin.hashCode() : 0);
         result = 31 * result + (token != null ? token.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (credit != null ? credit.hashCode() : 0);

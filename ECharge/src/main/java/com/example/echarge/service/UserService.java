@@ -32,5 +32,14 @@ public class UserService {
     public void updateUser(UserEntity user) {
         userDao.saveAndFlush(user);
     }
+    public boolean checkName(String name){
+        UserEntity user = userDao.findByName(name);
+        if(user != null) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
 }

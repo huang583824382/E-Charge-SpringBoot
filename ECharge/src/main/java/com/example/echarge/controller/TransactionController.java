@@ -1,6 +1,7 @@
 package com.example.echarge.controller;
 
 import com.example.echarge.dao.TransactionDao;
+import com.example.echarge.entity.CommentEntity;
 import com.example.echarge.entity.CommodityEntity;
 import com.example.echarge.entity.TransactionEntity;
 import com.example.echarge.entity.UserEntity;
@@ -48,6 +49,24 @@ public class TransactionController {
         return res;
     }
 
+    @PostMapping("rate")
+    @ResponseBody
+    public LinkedHashMap<String, Object> rateForTrans(String token, int transId, double rate){
+        LinkedHashMap<String, Object> res = new LinkedHashMap<>();
+        UserEntity user = userService.getUserByToken(token);
+        CommentEntity comment = new CommentEntity();
+        comment.setTransactionId(transId);
+        comment.setRate(rate);
+        comment.setUid(user.getUid());
+        transactionService.addComment(comment);
+        TransactionEntity trans = transactionService.getTransByState(transId, 3);
+        trans.setState(4);
+        transactionService.updateTrans(trans);
+        res.put("code", "success");
+        return res;
+    }
+
+
     @PostMapping("info")
     @ResponseBody
     public LinkedList<Object> getTransactionInfo(String token){
@@ -90,9 +109,15 @@ public class TransactionController {
         trans.setSellerId(user.getUid());
         trans.setType(comm.getType());
         trans.setDealTime(new Timestamp((new Date()).getTime()));
-        transactionService.addTrans(trans);
-        res.put("transId", trans.getTransactionId());
+        trans = transactionService.addTrans(trans);
+        // 设置commodity状态为1，即已被购买
+        CommodityEntity comm = commodityService.getByItemId(itemId);
+        comm.setState(1);
+        trans.setSellerId(comm.getPubId());
+        trans.setType(comm.getType());
+        commodityService.updateCommodity(comm);
         res.put("code", "success");
+        res.put("transId", trans.getTransactionId());
         return res;
     }
     //付款 pay
@@ -131,7 +156,7 @@ public class TransactionController {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         // 检查token和transactionId
         UserEntity user = userService.getUserByToken(token);
-        TransactionEntity trans = transactionService.getConfirmableTrans(transId);
+        TransactionEntity trans = transactionService.getTransByState(transId, 2);
         if(user == null || trans == null) {
             res.put("code", "fail");
             return res;
@@ -177,7 +202,7 @@ public class TransactionController {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         // 检查token和transactionId
         UserEntity user = userService.getUserByToken(token);
-        TransactionEntity trans = transactionService.getConfirmableTrans(transId);
+        TransactionEntity trans = transactionService.getTransByState(transId, 2);
         if(user == null || trans == null) {
             res.put("code", "fail");
             return res;
