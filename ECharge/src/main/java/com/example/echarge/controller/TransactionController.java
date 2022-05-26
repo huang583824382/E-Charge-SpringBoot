@@ -111,7 +111,6 @@ public class TransactionController {
         trans.setDealTime(new Timestamp((new Date()).getTime()));
         trans = transactionService.addTrans(trans);
         // 设置commodity状态为1，即已被购买
-        CommodityEntity comm = commodityService.getByItemId(itemId);
         comm.setState(1);
         trans.setSellerId(comm.getPubId());
         trans.setType(comm.getType());
