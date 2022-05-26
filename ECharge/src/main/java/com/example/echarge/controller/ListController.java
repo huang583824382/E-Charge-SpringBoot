@@ -35,7 +35,7 @@ public class ListController {
      */
     @PostMapping("goods")
     @ResponseBody
-    public List<CommodityEntity> getGoodsList(String token, int size) {
+    public LinkedHashMap<String, Object> getGoodsList(String token, int size) {
         UserEntity user = userService.getUserByToken(token);
         // token不对，无效查询
         if(user == null) {
@@ -52,7 +52,7 @@ public class ListController {
      */
     @PostMapping("tasks")
     @ResponseBody
-    public List<CommodityEntity> getTasksList(String token, int size){
+    public LinkedHashMap<String, Object> getTasksList(String token, int size){
         UserEntity user = userService.getUserByToken(token);
         // token不对，无效查询
         if(user == null) {

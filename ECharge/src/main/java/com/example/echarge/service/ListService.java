@@ -7,13 +7,16 @@
 package com.example.echarge.service;
 
 import com.example.echarge.dao.CommodityDao;
+import com.example.echarge.dao.UserDao;
 import com.example.echarge.entity.CommodityEntity;
+import com.example.echarge.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.*;
 
+import static com.example.echarge.util.getCoverUtil.getCover;
 import static java.lang.Math.min;
 
 @Service
@@ -25,17 +28,39 @@ public class ListService {
     @Autowired
     CommodityDao commodityDao;
 
+    @Autowired
+    UserDao userDao;
+
+    public LinkedHashMap<String, Object> assembleRes(int type, List<CommodityEntity> list) {
+        LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
+        if(type == 1) {
+            List<UserEntity> uList = new ArrayList<>();
+            for (CommodityEntity commodityEntity : list) {
+                commodityEntity.setFigureUrls(getCover(commodityEntity.getFigureUrls()));
+                uList.add(userDao.findByUid(commodityEntity.getPubId()));
+            }
+            res.put("pubUser", uList);
+        }
+        else {
+            for (CommodityEntity commodityEntity : list) {
+                commodityEntity.setFigureUrls(getCover(commodityEntity.getFigureUrls()));
+            }
+        }
+        res.put("list", list);
+        return res;
+    }
+
     /**
      * 无筛选条件随机获取commodities
      * @param type 类型 0：商品；1：任务
      * @param size 数量
-     * @return 获取的commodities列表
+     * @return 商品：{list: 商品列表}; 任务：{pubUser: 任务发布者列表; list: 商品列表}
      */
-    public List<CommodityEntity> getList(int type, int size, int state) {
+    public LinkedHashMap<String, Object> getList(int type, int size, int state) {
         List<CommodityEntity> list = commodityDao.findAllByTypeAndState(type, 0);
         // 随机排序
         Collections.shuffle(list);
-        return list.subList(0, min(size, list.size()));
+        return assembleRes(type, list.subList(0, min(size, list.size())));
     }
 
     // id 降序，也即时间降序
@@ -94,7 +119,8 @@ public class ListService {
         }
         // 有效的起始位置，返回对应的数据
         if(startPos < list.size()) {
-            res.put("list", list.subList(startPos, min(startPos+size, list.size())));
+            List<CommodityEntity> resList = list.subList(startPos, min(startPos+size, list.size()));
+            res = assembleRes(type, resList);
             res.put("totalCount", list.size());
         }
         System.out.println(res);

@@ -78,17 +78,20 @@ public class TransactionController {
             res.put("code", "has been bought");
             return res;
         }
+        // 设置commodity状态为1，即已被购买
+        CommodityEntity comm = commodityService.getByItemId(itemId);
+        comm.setState(1);
+        commodityService.updateCommodity(comm);
         // 可以创建，插入数据
         TransactionEntity trans = new TransactionEntity();
         trans.setItemId(itemId);
         trans.setCustomerId(user.getUid());
         trans.setState(1);
+        trans.setSellerId(user.getUid());
+        trans.setType(comm.getType());
         trans.setDealTime(new Timestamp((new Date()).getTime()));
         transactionService.addTrans(trans);
-        // 设置commodity状态为1，即已被购买
-        CommodityEntity comm = commodityService.getByItemId(itemId);
-        comm.setState(1);
-        commodityService.updateCommodity(comm);
+        res.put("transId", trans.getTransactionId());
         res.put("code", "success");
         return res;
     }
