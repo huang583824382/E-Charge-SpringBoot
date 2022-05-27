@@ -63,6 +63,11 @@ public class ListService {
         return assembleRes(type, list.subList(0, min(size, list.size())));
     }
 
+    public List<CommodityEntity> getUserList(int uid, int type, int size){
+        List<CommodityEntity> list = commodityDao.findAllByPubIdAndType(uid, type);
+        return list;
+    }
+
     // id 降序，也即时间降序
     static Comparator<CommodityEntity> id = new Comparator<CommodityEntity>() {
         @Override

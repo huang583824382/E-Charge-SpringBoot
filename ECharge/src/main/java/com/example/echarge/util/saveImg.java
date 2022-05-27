@@ -1,10 +1,16 @@
 package com.example.echarge.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 public class saveImg {
+
+    @Value("${upload-url}") private static String uploadUrl;
+    @Value("${upload-path}") private static String uploadPath;
     /**
      * 保存一张图片
      * @param img 图片流
@@ -40,5 +46,23 @@ public class saveImg {
             System.out.println(e.toString());
             return false;
         }
+    }
+
+    public static String saveImage(MultipartFile img, String path) throws  IOException {
+        String fid = UUID.randomUUID().toString().replace("-", "");
+        String tmpPath = path + fid + ".jpg";
+        System.out.println(tmpPath);
+        // 创建目录
+        File Folder = new File(path);
+        if(!Folder.exists() || !Folder.isDirectory()) Folder.mkdirs();
+        // 保存头像
+        try {
+            // 保存图片到本地
+            img.transferTo(new java.io.File(tmpPath));
+        }
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return fid + ".jpg";
     }
 }
