@@ -31,6 +31,12 @@ public class ReportEntity {
     @Basic
     @Column(name = "option_id")
     private Integer optionId;
+    @Basic
+    @Column(name = "urls")
+    private String urls;
+    @Basic
+    @Column(name = "report_title")
+    private String reportTitle;
 
     public int getReportId() {
         return reportId;
@@ -96,6 +102,22 @@ public class ReportEntity {
         this.optionId = optionId;
     }
 
+    public String getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
+
+    public String getReportTitle() {
+        return reportTitle;
+    }
+
+    public void setReportTitle(String reportTitle) {
+        this.reportTitle = reportTitle;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,6 +134,8 @@ public class ReportEntity {
         if (reportTime != null ? !reportTime.equals(that.reportTime) : that.reportTime != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
         if (optionId != null ? !optionId.equals(that.optionId) : that.optionId != null) return false;
+        if (urls != null ? !urls.equals(that.urls) : that.urls != null) return false;
+        if (reportTitle != null ? !reportTitle.equals(that.reportTitle) : that.reportTitle != null) return false;
 
         return true;
     }
@@ -126,6 +150,8 @@ public class ReportEntity {
         result = 31 * result + (reportTime != null ? reportTime.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (optionId != null ? optionId.hashCode() : 0);
+        result = 31 * result + (urls != null ? urls.hashCode() : 0);
+        result = 31 * result + (reportTitle != null ? reportTitle.hashCode() : 0);
         return result;
     }
 }
