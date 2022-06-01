@@ -13,4 +13,8 @@ public interface CommodityDao extends JpaRepository<CommodityEntity, Integer> {
     public CommodityEntity findByItemId(int itemId);
     public CommodityEntity findByItemIdAndState(int itemId, int state);
     public List<CommodityEntity> findAllByPubIdAndType(int uid, int type);
+    public CommodityEntity findByPubId(int pub_id);
+    public CommodityEntity findByPrice(double price);
+    public CommodityEntity findByTitle(String title);
+    public void deleteByItemId(int itemId);
 }
