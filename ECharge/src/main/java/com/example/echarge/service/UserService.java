@@ -25,7 +25,6 @@ public class UserService {
     public UserEntity showUserInfo(int uid){
         return userDao.findByUid(uid);
     }
-
     public LinkedHashMap<String, Object> assembleUserInfo(UserEntity user) {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         if(user!=null){
@@ -33,6 +32,8 @@ public class UserService {
             res.put("gender",user.getGender());
             res.put("phone",user.getPhoneNumber());
             res.put("iconUrl",user.getIconUrl());
+            res.put("credit", user.getCredit());
+            res.put("admin", user.getIsAdmin());
         }
 
         return res;
