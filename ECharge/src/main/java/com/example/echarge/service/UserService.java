@@ -28,6 +28,7 @@ public class UserService {
     public LinkedHashMap<String, Object> assembleUserInfo(UserEntity user) {
         LinkedHashMap<String, Object> res = new LinkedHashMap<String, Object>(0);
         if(user!=null){
+            res.put("uid", user.getUid());
             res.put("name", user.getName());
             res.put("gender",user.getGender());
             res.put("phone",user.getPhoneNumber());

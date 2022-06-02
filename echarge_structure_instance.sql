@@ -14,7 +14,7 @@
  Date: 01/06/2022 21:01:05
 */
 
-use echarge
+use echarge;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

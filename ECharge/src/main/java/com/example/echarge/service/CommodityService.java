@@ -136,7 +136,7 @@ public class CommodityService {
 
     public void takeDownCommodityByItemId(int itemId) {
         CommodityEntity comm = commodityDao.findByItemId(itemId);
-        comm.setState(3);
+        comm.setState(2);
         commodityDao.saveAndFlush(comm);
     }
 }

@@ -54,7 +54,7 @@ public class CommodityController {
             return res;
         }
         else {
-            int state = (user.getCredit() < 80? 2: 0); // 0: to be bought; 2: to be audited
+            int state = (user.getCredit() < 80? -1: 0); // 0: to be bought; -1: to be audited
             LinkedHashMap<String, Object> res = commodityService.addCommodityFirst(session_key, publish, title, publishImage, price, description,
                                                                                    tags, place, deadline, type, user.getUid(), state);
             return res;
@@ -77,7 +77,7 @@ public class CommodityController {
         }
     }
 
-    // TODO: 无图片任务发布
+    // 无图片任务发布
     @PostMapping("publish/no-pic") //
     @ResponseBody
     public LinkedHashMap<String, Object> publishNoPicTask(String session_key, String title,
@@ -89,7 +89,7 @@ public class CommodityController {
             res.put("code", "verification error");
             return res;
         }
-        int state = (user.getCredit() < 80? 2: 0); // 0: to be bought; 2: to be audited
+        int state = (user.getCredit() < 80? -1: 0); // 0: to be bought; -1: to be audited
         return commodityService.addNoPicTask(title, price, description, tags, place, deadline, user.getUid(), state);
     }
 
