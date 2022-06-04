@@ -1,5 +1,6 @@
 package com.example.echarge.service;
 
+import com.example.echarge.dao.CommodityDao;
 import com.example.echarge.dao.ReportDao;
 import com.example.echarge.entity.ReportEntity;
 import com.example.echarge.util.saveImg;
@@ -20,6 +21,8 @@ public class ReportService {
 
     @Autowired
     ReportDao reportDao;
+    @Autowired
+    CommodityDao commodityDao;
 
     @Value("${upload-url}") private String uploadUrl;
     @Value("${upload-path}") private String uploadPath;
@@ -51,6 +54,7 @@ public class ReportService {
             report.setTargetUserId(target_id);
         } else {
             report.setTargetItemId(target_id);
+            report.setTargetUserId(commodityDao.findByItemId(target_id).getPubId());
         }
         reportDao.saveAndFlush(report);
         LinkedHashMap<String, Object> res = new LinkedHashMap<>(0);
