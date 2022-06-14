@@ -1,8 +1,5 @@
 package com.example.echarge.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class getCoverUtil {
     public static String getCover(String urlString){
         if(urlString == null){

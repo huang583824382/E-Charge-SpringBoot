@@ -28,7 +28,7 @@ public class TransactionService {
 
     public LinkedList<Object> getTransactionListByStateAndIndex(int uid, int state, int index, int isCustomer){
         LinkedList<Object> res = new LinkedList<>();
-        LinkedList<TransactionEntity> trans = new LinkedList<>();
+        LinkedList<TransactionEntity> trans;
 //        CommodityEntity commodity = commodityDao.getById(commodityId);
         if(state != -1){
             if(isCustomer == 1) trans = transactionDao.findByStateAndCustomerIdAndTransactionIdGreaterThan(state, uid, index);

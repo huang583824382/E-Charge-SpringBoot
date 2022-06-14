@@ -3,7 +3,6 @@ package com.example.echarge.service;
 import com.example.echarge.dao.CommodityDao;
 import com.example.echarge.entity.CommodityEntity;
 import com.example.echarge.util.saveImg;
-import org.hibernate.engine.transaction.jta.platform.internal.OC4JJtaPlatform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

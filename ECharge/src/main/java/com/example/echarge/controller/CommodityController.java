@@ -66,15 +66,15 @@ public class CommodityController {
     public LinkedHashMap<String, Object> publishSecond(MultipartFile publish, String publishImage, String session_key, int item_id) throws IOException {
         /* 这里用于传递第一张图片时的情况 传入整个信息，之后不用传session_key 和 url 以外的信息 */
         UserEntity user = userService.getUserByToken(session_key);
+        LinkedHashMap<String, Object> res;
         if(user == null) {
-            LinkedHashMap<String, Object> res = new LinkedHashMap<>(0);
+            res = new LinkedHashMap<>(0);
             res.put("info", "verification error");
-            return res;
         }
         else {
-            LinkedHashMap<String, Object> res = commodityService.addCommoditySecond(session_key, publish, item_id, publishImage);
-            return  res;
+            res = commodityService.addCommoditySecond(session_key, publish, item_id, publishImage);
         }
+        return res;
     }
 
     // 无图片任务发布

@@ -1,12 +1,9 @@
 package com.example.echarge.controller;
 
-import com.example.echarge.entity.CommentEntity;
 import com.example.echarge.entity.CommodityEntity;
 import com.example.echarge.entity.UserEntity;
-import com.example.echarge.service.CommodityService;
 import com.example.echarge.service.ListService;
 import com.example.echarge.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

@@ -29,8 +29,8 @@ public class LoginService {
     @Autowired
     private UserDao userDao;
 
-    private String appID = "wx24d42abf42402eef";
-    private String appSecret = "2f5a0937d16321a23c7e95b0bfa78382";
+    private final String appID = "wx24d42abf42402eef";
+    private final String appSecret = "2f5a0937d16321a23c7e95b0bfa78382";
     private RestTemplate restTemplate = new RestTemplate();
     public LinkedHashMap<String, Object> getUserInfo(String code)
     {
@@ -42,6 +42,7 @@ public class LoginService {
                 + "&grant_type=authorization_code";
         String resStr = restTemplate.getForObject(url, String.class);
         System.out.println(resStr);
+        assert resStr != null;
         JSONParser json = new JSONParser(resStr);
         LinkedHashMap<String, Object> res;
         try {

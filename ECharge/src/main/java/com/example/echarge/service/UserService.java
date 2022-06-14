@@ -2,7 +2,6 @@ package com.example.echarge.service;
 
 import com.example.echarge.dao.UserDao;
 import com.example.echarge.entity.UserEntity;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -53,12 +52,8 @@ public class UserService {
         }
     }
     public boolean editAvatar(UserEntity user, MultipartFile img){
-        String url = null;
-        try {
-            url = uploadUrl+saveImg.saveImage(img, uploadPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        String url;
+        url = uploadUrl+saveImg.saveImage(img, uploadPath);
         System.out.println("url "+url);
         user.setIconUrl(url);
         userDao.saveAndFlush(user);

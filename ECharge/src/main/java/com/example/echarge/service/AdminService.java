@@ -1,6 +1,5 @@
 package com.example.echarge.service;
 
-import com.example.echarge.dao.CommentDao;
 import com.example.echarge.dao.CommodityDao;
 import com.example.echarge.dao.ReportDao;
 import com.example.echarge.dao.UserDao;

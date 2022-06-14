@@ -30,15 +30,15 @@ public class ReportController {
         /* 这里用于传递第一张图片时的情况 传入整个信息，之后不用传session_key 和 url 以外的信息 */
         /* 添加商品记录，保存图片 */
         UserEntity user = userService.getUserByToken(token);
+        LinkedHashMap<String, Object> res;
         if(user == null) {
-            LinkedHashMap<String, Object> res = new LinkedHashMap<>(0);
+            res = new LinkedHashMap<>(0);
             res.put("code", "fail");
-            return res;
         }
         else {
-            LinkedHashMap<String, Object> res =  reportService.addReportFirst(image, imageUrl, reason, target_id, isUser, user.getUid());
-            return res;
+            res = reportService.addReportFirst(image, imageUrl, reason, target_id, isUser, user.getUid());
         }
+        return res;
 
     }
 
@@ -48,15 +48,15 @@ public class ReportController {
     public LinkedHashMap<String, Object> reportSecond(MultipartFile image, String imageUrl, String token, int report_id) throws IOException {
         /* 这里用于传递第一张图片时的情况 传入整个信息，之后不用传session_key 和 url 以外的信息 */
         UserEntity user = userService.getUserByToken(token);
+        LinkedHashMap<String, Object> res;
         if(user == null) {
-            LinkedHashMap<String, Object> res = new LinkedHashMap<>(0);
+            res = new LinkedHashMap<>(0);
             res.put("code", "fail");
-            return res;
         }
         else {
-            LinkedHashMap<String, Object> res = reportService.addReportSecond(image, imageUrl, report_id);
-            return  res;
+            res = reportService.addReportSecond(image, imageUrl, report_id);
         }
+        return res;
     }
 
     // 无图片举报

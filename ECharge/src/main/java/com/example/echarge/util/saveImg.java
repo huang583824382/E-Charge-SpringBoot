@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 public class saveImg {
@@ -13,19 +12,17 @@ public class saveImg {
     @Value("${upload-path}") private static String uploadPath;
     /**
      * 保存一张图片
-     * @param img 图片流
+     *
+     * @param img  图片流
      * @param path 图片路径
-     * @return true - 成功保存 false - 保存出错
      */
-    public static Boolean saveOneImg(MultipartFile img, String path) throws IOException {
+    public static void saveOneImg(MultipartFile img, String path) {
         try {
             // 保存图片到本地
             img.transferTo(new java.io.File(path));
-            return true;
         }
         catch (Exception e) {
-            System.out.println(e.toString());
-            return false;
+            System.out.println(e);
         }
     }
     /**
@@ -34,7 +31,7 @@ public class saveImg {
      * @param paths 图片路径列表
      * @return true - 成功保存 false - 保存出错
      */
-    public static Boolean saveImgs(MultipartFile[] imgs, String[] paths) throws  IOException {
+    public static Boolean saveImgs(MultipartFile[] imgs, String[] paths) {
         try {
             // 遍历列表
             for(int i = 0; i < imgs.length; i++) {
@@ -43,12 +40,12 @@ public class saveImg {
             return true;
         }
         catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e);
             return false;
         }
     }
 
-    public static String saveImage(MultipartFile img, String path) throws  IOException {
+    public static String saveImage(MultipartFile img, String path) {
         String fid = UUID.randomUUID().toString().replace("-", "");
         String tmpPath = path + fid + ".jpg";
         System.out.println(tmpPath);
@@ -61,7 +58,7 @@ public class saveImg {
             img.transferTo(new java.io.File(tmpPath));
         }
         catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         }
         return fid + ".jpg";
     }
